@@ -41,6 +41,17 @@ namespace WebApi
             services.AddDbContext<ApplicationContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IRepository<Company>, CompanyRepository>();
+            services.AddScoped<IRepository<AcademicSupervisor>, AcademicSupervisorRepository>();
+            services.AddScoped<IRepository<CompanyStuff>, CompanyStuffRepository>();
+            services.AddScoped<IRepository<Employment>, EmpoloymentRepository>();
+            services.AddScoped<IRepository<Event>, EventRepository>();
+            services.AddScoped<IRepository<EventRequest>, EventRequestRepository>();
+            services.AddScoped<IRepository<Partnership>, PartnershipRepository>();
+            services.AddScoped<IRepository<Response>, ResponseRepository>();
+            services.AddScoped<IRepository<Student>, StudentRepository>();
+            services.AddScoped<IRepository<University>, UniversityRepository>();
+            services.AddScoped<IRepository<Vacancy>, VacancyRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
