@@ -9,5 +9,13 @@ namespace WebApi.Models
     {
         public DateTime RequestSendDate { get; set; }
         public bool Happening { get; set; }
+        public ICollection<AcademicSupervisor> AcademicSupervisors { get; set; }
+        public ICollection<CompanyStuff> CompanyStuffs { get; set; }
+
+        public EventRequest()
+        {
+            AcademicSupervisors = new List<AcademicSupervisor>();
+            CompanyStuffs = new List<CompanyStuff>();
+        }
     }
 }

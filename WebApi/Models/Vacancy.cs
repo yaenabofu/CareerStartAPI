@@ -17,5 +17,11 @@ namespace WebApi.Models
         public string Responsibilities { get; set; }
         public string Conditions { get; set; }
         public string Salary { get; set; }
+        public ICollection<Response> Responses { get; set; }
+
+        public Vacancy()
+        {
+            Responses = new List<Response>();
+        }
     }
 }

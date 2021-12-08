@@ -8,5 +8,10 @@ namespace WebApi.Models
     public class AcademicSupervisor : baseUser
     {
         public int UniversityId { get; set; }
+        public ICollection<EventRequest> EventRequests { get; set; }
+        public AcademicSupervisor()
+        {
+            EventRequests = new List<EventRequest>();
+        }
     }
 }

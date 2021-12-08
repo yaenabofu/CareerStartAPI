@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Models
 {
-    public class Student
+    public class Student : baseUser
     {
         public int UniversityId { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -14,5 +14,13 @@ namespace WebApi.Models
         public string Status { get; set; }
         public string PortfolioURL { get; set; }
         public string ResumeURL { get; set; }
+        public ICollection<Response> Responses { get; set; }
+        public ICollection<Employment> Employments { get; set; }
+
+        public Student()
+        {
+            Responses = new List<Response>();
+            Employments = new List<Employment>();
+        }
     }
 }

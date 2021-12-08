@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace WebApi.Repository
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T>
     {
-        IEnumerable<T> Get();
-        T Get(int id);
-        void Create(T obj);
-        void Update(T оbj);
-        bool Delete(int id);
-        void Save();
+        Task<IEnumerable<T>> Get();
+        Task<T> Get(int id);
+        Task<T> Create(T obj);
+        Task<T> Update(T оbj);
+        Task<bool> Delete(int id);
     }
 }

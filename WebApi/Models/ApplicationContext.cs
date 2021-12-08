@@ -10,11 +10,11 @@ namespace WebApi.Models
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=CareerStart;Trusted_Connection=True;");
+
         }
-        public ApplicationContext()
+        public ApplicationContext(DbContextOptions<ApplicationContext> dbContextOptions) : base(dbContextOptions)
         {
-            Database.EnsureCreated();
+            Database.Migrate();
         }
         public DbSet<AcademicSupervisor> AcademicSupervisors { get; set; }
         public DbSet<Company> Companies { get; set; }

@@ -16,42 +16,44 @@ namespace WebApi.Repositories
         {
             context = Context;
         }
-        public void Create(Company obj)
+        public async Task<Company> Create(Company obj)
         {
-            context.Companies.Add(obj);
+            await context.Companies.AddAsync(obj);
+            await context.SaveChangesAsync();
+
+            return obj;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            Company company = context.Companies.SingleOrDefault(x => x.Id == id);
+            Company company = await context.Companies.FindAsync(id);
 
             if (company != null)
             {
                 context.Companies.Remove(company);
+                await context.SaveChangesAsync();
+
                 return true;
             }
 
             return false;
         }
 
-        public IEnumerable<Company> Get()
+        public async Task<IEnumerable<Company>> Get()
         {
-            return context.Companies.ToList();
+            return await context.Companies.ToListAsync();
         }
 
-        public Company Get(int id)
+        public async Task<Company> Get(int id)
         {
-            return context.Companies.Find(id);
+            return await context.Companies.FindAsync(id);
         }
 
-        public void Save()
+        public async Task<Company> Update(Company newCompany)
         {
-            context.SaveChanges();
-        }
-
-        public void Update(Company newCompany)
-        {
-            context.Companies.Update(newCompany);
+            context.Entry(newCompany).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return newCompany;
         }
     }
 }

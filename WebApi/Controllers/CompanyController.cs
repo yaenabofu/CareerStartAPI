@@ -11,6 +11,8 @@ using WebApi.Repository;
 
 namespace WebApi.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class CompanyController : Controller
     {
         private readonly IRepository<Company> companyRepo;
@@ -19,52 +21,46 @@ namespace WebApi.Controllers
             companyRepo = CompanyRepo;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("Get")]
+        public async Task<IActionResult> Get()
         {
-            var companies = companyRepo.Get();
+            var companies = await companyRepo.Get();
 
             return Ok(companies);
         }
-
-        [HttpGet]
-        public IActionResult Get(int id)
+        [HttpGet("Get/{id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            var company = companyRepo.Get(id);
+            var company = await companyRepo.Get(id);
 
             if (company != null)
             {
-                return Ok();
+                return Ok(company);
             }
 
             return NotFound();
         }
-
-        [HttpPost]
-        public IActionResult Create([FromBody] Company company)
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create([FromBody] Company company)
         {
-            companyRepo.Create(company);
-            companyRepo.Save();
+            await companyRepo.Create(company);
 
-            return Ok();
+            return Ok(company);
         }
 
-        [HttpPut]
-        public IActionResult Update([FromBody] Company company)
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update([FromBody] Company company)
         {
-            companyRepo.Update(company);
-            companyRepo.Save();
+            await companyRepo.Update(company);
 
-            return Ok();
+            return Ok(company);
         }
-        [HttpDelete]
-        public IActionResult Delete(int id)
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (companyRepo.Delete(id))
+            if (await companyRepo.Delete(id))
             {
-                companyRepo.Save();
-
-                return Ok();
+                return Ok(id);
             }
 
             return BadRequest();
