@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebApi.Models
 {
-    public class Event : baseEvent
+    public class ConnectedUser
     {
-        public string EventReview { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -15,14 +15,5 @@ namespace WebApi.Models
         public string EmploymentType { get; set; }
         public DateTime DateOfStart { get; set; }
         public DateTime DateOfEnd { get; set; }
-       
-        public ICollection<Student> Students { get; set; }
-        public ICollection<Company> Companies { get; set; }
-
-        public Employment()
-        {
-            Students= new List<Student>();
-            Companies = new List<Company>();
-        }
     }
 }

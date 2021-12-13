@@ -15,14 +15,14 @@ namespace WebApi.Models
         public ICollection<AcademicSupervisor> AcademicSupervisors { get; set; }
         public ICollection<Student> Students { get; set; }
         public ICollection<Event> Events { get; set; }
-        public ICollection<Partnership> Partnerships { get; set; }
+        public ICollection<AcademicDiscipline> AcademicDisciplines { get; set; }
 
         public University()
         {
             AcademicSupervisors = new List<AcademicSupervisor>();
             Students = new List<Student>();
             Events = new List<Event>();
-            Partnerships = new List<Partnership>();
+            AcademicDisciplines = new List<AcademicDiscipline>();
         }
     }
 }

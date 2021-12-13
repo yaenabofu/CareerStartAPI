@@ -8,6 +8,8 @@ namespace WebApi.Models
     public abstract class baseEvent
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
+        public int UniversityId { get; set; }
         public string EventType { get; set; }
         public string EventDescription { get; set; }
         public string WorkerDescription { get; set; }
