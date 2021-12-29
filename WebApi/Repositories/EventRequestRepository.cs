@@ -13,6 +13,7 @@ namespace WebApi.Repositories
         private readonly ApplicationContext context;
         public EventRequestRepository(ApplicationContext Context)
         {
+
             context = Context;
         }
         public async Task<EventRequest> Create(EventRequest obj)
