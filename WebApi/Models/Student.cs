@@ -7,20 +7,15 @@ namespace WebApi.Models
 {
     public class Student : BaseUser
     {
-        public int UniversityId { get; set; }
+        public int EducationalProgrammeId { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string Faculty { get; set; }
-        public string Speciality { get; set; }
         public string Status { get; set; }
-        public string PortfolioURL { get; set; }
         public string ResumeURL { get; set; }
         public ICollection<Response> Responses { get; set; }
-        public ICollection<Employment> Employments { get; set; }
 
         public Student()
         {
             Responses = new List<Response>();
-            Employments = new List<Employment>();
         }
     }
 }

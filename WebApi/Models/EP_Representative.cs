@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace WebApi.Models
 {
-    public class Event : baseEvent
+    public class EP_Representative : BaseUser
     {
-        public string EventReview { get; set; }
+        public int EducationalProgrammeId { get; set; }
     }
 }

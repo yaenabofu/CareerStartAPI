@@ -14,7 +14,7 @@ namespace WebApi.Models
         public string ThirdName { get; set; }
         public string Email { get; set; }
         public string Telephone { get; set; }
-        public string UserType { get; set; }
+        public string Role { get; set; }
         public string Password { get; set; }
     }
 }

@@ -39,12 +39,13 @@ namespace WebApi
             services.AddDbContext<ApplicationContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IRepository<Company>, CompanyRepository>();
-            services.AddScoped<IRepository<AcademicSupervisor>, AcademicSupervisorRepository>();
-            services.AddScoped<IRepository<CompanyStuff>, CompanyStuffRepository>();
-            services.AddScoped<IRepository<Employment>, EmpoloymentRepository>();
-            services.AddScoped<IRepository<Event>, EventRepository>();
+            services.AddScoped<IRepository<EP_Representative>, EP_RepresentativeRepository>();
+            services.AddScoped<IRepository<Employee>, EmployeeRepository>();
+            services.AddScoped<IRepository<StudentCompanyData>, StudentCompanyDataRepository>();
+            services.AddScoped<IRepository<EducationalProgramme>, EducationalProgrammeRepository>();
+            services.AddScoped<IRepository<UNI_Representative>, UNI_RepresentativeRepository>();
             services.AddScoped<IRepository<EventRequest>, EventRequestRepository>();
-            services.AddScoped<IRepository<Partnership>, PartnershipRepository>();
+            services.AddScoped<IRepository<PartnershipRequest>, PartnershipRequestRepository>();
             services.AddScoped<IRepository<Response>, ResponseRepository>();
             services.AddScoped<IRepository<Student>, StudentRepository>();
             services.AddScoped<IRepository<University>, UniversityRepository>();

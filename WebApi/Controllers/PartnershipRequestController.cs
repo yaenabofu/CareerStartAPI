@@ -10,10 +10,10 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PartnershipController : Controller
+    public class PartnershipRequestController : Controller
     {
-        private readonly IRepository<Partnership> partnershipRepo;
-        public PartnershipController(IRepository<Partnership> Partnership)
+        private readonly IRepository<PartnershipRequest> partnershipRepo;
+        public PartnershipRequestController(IRepository<PartnershipRequest> Partnership)
         {
             this.partnershipRepo = Partnership;
         }
@@ -38,7 +38,7 @@ namespace WebApi.Controllers
             return NotFound();
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] Partnership partnership)
+        public async Task<IActionResult> Create([FromBody] PartnershipRequest partnership)
         {
             await partnershipRepo.Create(partnership);
 
@@ -46,7 +46,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody] Partnership partnership)
+        public async Task<IActionResult> Update([FromBody] PartnershipRequest partnership)
         {
             await partnershipRepo.Update(partnership);
 

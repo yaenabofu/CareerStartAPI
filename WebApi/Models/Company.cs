@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace WebApi.Models
 {
@@ -11,14 +8,14 @@ namespace WebApi.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
-        public ICollection<CompanyStuff> CompanyStuffs { get; set; }
-        public ICollection<Partnership> Partnerships { get; set; }
+        public ICollection<Employee> Employees { get; set; }
+        public ICollection<PartnershipRequest> Partnerships { get; set; }
         public ICollection<Vacancy> Vacancies { get; set; }
 
         public Company()
         {
-            CompanyStuffs = new List<CompanyStuff>();
-            Partnerships = new List<Partnership>();
+            Employees = new List<Employee>();
+            Partnerships = new List<PartnershipRequest>();
             Vacancies = new List<Vacancy>();
         }
     }

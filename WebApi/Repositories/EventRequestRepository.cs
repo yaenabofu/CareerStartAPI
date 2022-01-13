@@ -26,11 +26,11 @@ namespace WebApi.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            EventRequest onDeleteEventRequest = await context.EventRequests.FindAsync(id);
+            EventRequest obj = await context.EventRequests.FindAsync(id);
 
-            if (onDeleteEventRequest != null)
+            if (obj != null)
             {
-                context.EventRequests.Remove(onDeleteEventRequest);
+                context.EventRequests.Remove(obj);
                 await context.SaveChangesAsync();
 
                 return true;
@@ -49,11 +49,11 @@ namespace WebApi.Repositories
             return await context.EventRequests.FindAsync(id);
         }
 
-        public async Task<EventRequest> Update(EventRequest newEventRequest)
+        public async Task<EventRequest> Update(EventRequest obj)
         {
-            context.Entry(newEventRequest).State = EntityState.Modified;
+            context.Entry(obj).State = EntityState.Modified;
             await context.SaveChangesAsync();
-            return newEventRequest;
+            return obj;
         }
     }
 }

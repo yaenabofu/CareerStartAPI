@@ -25,11 +25,11 @@ namespace WebApi.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            Response response = await context.Responses.FindAsync(id);
+            Response obj = await context.Responses.FindAsync(id);
 
-            if (response != null)
+            if (obj != null)
             {
-                context.Responses.Remove(response);
+                context.Responses.Remove(obj);
                 await context.SaveChangesAsync();
 
                 return true;
@@ -48,11 +48,11 @@ namespace WebApi.Repositories
             return await context.Responses.FindAsync(id);
         }
 
-        public async Task<Response> Update(Response newResponse)
+        public async Task<Response> Update(Response obj)
         {
-            context.Entry(newResponse).State = EntityState.Modified;
+            context.Entry(obj).State = EntityState.Modified;
             await context.SaveChangesAsync();
-            return newResponse;
+            return obj;
         }
     }
 }

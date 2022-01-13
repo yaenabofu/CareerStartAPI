@@ -10,7 +10,14 @@ namespace WebApi.Models
         public int Id { get; set; }
         public int StudentId { get; set; }
         public int VacancyId { get; set; }
-        public bool RespondedSide { get; set; }
-        public bool toInterview { get; set; }
+        public int Initiator { get; set; }
+        public int To_next_part { get; set; }
+
+        public ICollection<StudentCompanyData> StudentCompanyDatas { get; set; }
+
+        public Response()
+        {
+            StudentCompanyDatas = new List<StudentCompanyData>();
+        }
     }
 }

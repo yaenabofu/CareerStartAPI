@@ -12,17 +12,13 @@ namespace WebApi.Models
         public string Description { get; set; }
         public string Location { get; set; }
         public string Rating { get; set; }
-        public ICollection<AcademicSupervisor> AcademicSupervisors { get; set; }
-        public ICollection<Student> Students { get; set; }
-        public ICollection<Event> Events { get; set; }
-        public ICollection<AcademicDiscipline> AcademicDisciplines { get; set; }
+        public ICollection<UNI_Representative> UNI_Representatives { get; set; }
+        public ICollection<EducationalProgramme> EducationalProgrammes { get; set; }
 
         public University()
         {
-            AcademicSupervisors = new List<AcademicSupervisor>();
-            Students = new List<Student>();
-            Events = new List<Event>();
-            AcademicDisciplines = new List<AcademicDiscipline>();
+            EducationalProgrammes = new List<EducationalProgramme>();
+            UNI_Representatives = new List<UNI_Representative>();
         }
     }
 }

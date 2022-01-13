@@ -10,10 +10,10 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AcademicSupervisorController : Controller
+    public class EP_RepresentativeController : Controller
     {
-        private readonly IRepository<AcademicSupervisor> academicSupervisorRepo;
-        public AcademicSupervisorController(IRepository<AcademicSupervisor> AcademicSupervisorRepo)
+        private readonly IRepository<EP_Representative> academicSupervisorRepo;
+        public EP_RepresentativeController(IRepository<EP_Representative> AcademicSupervisorRepo)
         {
             this.academicSupervisorRepo = AcademicSupervisorRepo;
         }
@@ -38,7 +38,7 @@ namespace WebApi.Controllers
             return NotFound();
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] AcademicSupervisor academicSupervisor)
+        public async Task<IActionResult> Create([FromBody] EP_Representative academicSupervisor)
         {
             await academicSupervisorRepo.Create(academicSupervisor);
 
@@ -46,7 +46,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody] AcademicSupervisor academicSupervisor)
+        public async Task<IActionResult> Update([FromBody] EP_Representative academicSupervisor)
         {
             await academicSupervisorRepo.Update(academicSupervisor);
 

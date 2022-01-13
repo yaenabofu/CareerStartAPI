@@ -9,14 +9,13 @@ namespace WebApi.Models
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }
-        public string Location { get; set; }
-        public string TypeOfEmployment { get; set; }
+        public string EmploymentType { get; set; }
         public string Name { get; set; }
-        public string CompanyDescription { get; set; }
         public string Requirements { get; set; }
         public string Responsibilities { get; set; }
         public string Conditions { get; set; }
         public string Salary { get; set; }
+        public int IsVisible { get; set; }
         public ICollection<Response> Responses { get; set; }
 
         public Vacancy()
