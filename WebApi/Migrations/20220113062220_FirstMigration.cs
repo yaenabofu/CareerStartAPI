@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApi.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,14 +28,14 @@ namespace WebApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RequestSendDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Happening = table.Column<bool>(type: "bit", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
-                    UniversityId = table.Column<int>(type: "int", nullable: false),
                     EventType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EventDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     WorkerDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EventDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EventDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RequestSendDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PartnershipRequestId = table.Column<int>(type: "int", nullable: false),
+                    CompanyResponse = table.Column<int>(type: "int", nullable: false),
+                    EducationalProgrammeResponse = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,7 +59,7 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CompanyStuff",
+                name: "Employees",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -71,34 +71,14 @@ namespace WebApi.Migrations
                     ThirdName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Telephone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CompanyStuff", x => x.Id);
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CompanyStuff_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Partnerships",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AcademicDisciplineId = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Partnerships", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Partnerships_Companies_CompanyId",
+                        name: "FK_Employees_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
@@ -112,14 +92,13 @@ namespace WebApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TypeOfEmployment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmploymentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Requirements = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Responsibilities = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Conditions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Salary = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Salary = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsVisible = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,7 +112,7 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AcademicDiscipline",
+                name: "EducationalProgrammes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -144,9 +123,9 @@ namespace WebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AcademicDiscipline", x => x.Id);
+                    table.PrimaryKey("PK_EducationalProgrammes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AcademicDiscipline_Universities_UniversityId",
+                        name: "FK_EducationalProgrammes_Universities_UniversityId",
                         column: x => x.UniversityId,
                         principalTable: "Universities",
                         principalColumn: "Id",
@@ -154,7 +133,7 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AcademicSupervisors",
+                name: "UNI_Representatives",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -166,14 +145,14 @@ namespace WebApi.Migrations
                     ThirdName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Telephone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AcademicSupervisors", x => x.Id);
+                    table.PrimaryKey("PK_UNI_Representatives", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AcademicSupervisors_Universities_UniversityId",
+                        name: "FK_UNI_Representatives_Universities_UniversityId",
                         column: x => x.UniversityId,
                         principalTable: "Universities",
                         principalColumn: "Id",
@@ -181,28 +160,59 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Events",
+                name: "EP_Representatives",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EventReview = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
-                    UniversityId = table.Column<int>(type: "int", nullable: false),
-                    EventType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EventDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkerDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EventDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EducationalProgrammeId = table.Column<int>(type: "int", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecondName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThirdName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Telephone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.PrimaryKey("PK_EP_Representatives", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_Universities_UniversityId",
-                        column: x => x.UniversityId,
-                        principalTable: "Universities",
+                        name: "FK_EP_Representatives_EducationalProgrammes_EducationalProgrammeId",
+                        column: x => x.EducationalProgrammeId,
+                        principalTable: "EducationalProgrammes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PartnershipRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AcademicDisciplineId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    CompanyResponse = table.Column<int>(type: "int", nullable: false),
+                    EducationalProgrammeResponse = table.Column<int>(type: "int", nullable: false),
+                    EducationalProgrammeId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PartnershipRequests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PartnershipRequests_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PartnershipRequests_EducationalProgrammes_EducationalProgrammeId",
+                        column: x => x.EducationalProgrammeId,
+                        principalTable: "EducationalProgrammes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -211,12 +221,9 @@ namespace WebApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UniversityId = table.Column<int>(type: "int", nullable: false),
+                    EducationalProgrammeId = table.Column<int>(type: "int", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Faculty = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Speciality = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PortfolioURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ResumeURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -224,41 +231,16 @@ namespace WebApi.Migrations
                     ThirdName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Telephone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Students_Universities_UniversityId",
-                        column: x => x.UniversityId,
-                        principalTable: "Universities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    StudentReview = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyReview = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmploymentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateOfStart = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateOfEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Employments_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
+                        name: "FK_Students_EducationalProgrammes_EducationalProgrammeId",
+                        column: x => x.EducationalProgrammeId,
+                        principalTable: "EducationalProgrammes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -271,8 +253,8 @@ namespace WebApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     VacancyId = table.Column<int>(type: "int", nullable: false),
-                    RespondedSide = table.Column<bool>(type: "bit", nullable: false),
-                    toInterview = table.Column<bool>(type: "bit", nullable: false)
+                    Initiator = table.Column<int>(type: "int", nullable: false),
+                    To_next_part = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -291,35 +273,54 @@ namespace WebApi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StudentCompanyDatas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentReview = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanyReview = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmploymentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ResponseId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentCompanyDatas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StudentCompanyDatas_Responses_ResponseId",
+                        column: x => x.ResponseId,
+                        principalTable: "Responses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_AcademicDiscipline_UniversityId",
-                table: "AcademicDiscipline",
+                name: "IX_EducationalProgrammes_UniversityId",
+                table: "EducationalProgrammes",
                 column: "UniversityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AcademicSupervisors_UniversityId",
-                table: "AcademicSupervisors",
-                column: "UniversityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CompanyStuff_CompanyId",
-                table: "CompanyStuff",
+                name: "IX_Employees_CompanyId",
+                table: "Employees",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employments_StudentId",
-                table: "Employments",
-                column: "StudentId");
+                name: "IX_EP_Representatives_EducationalProgrammeId",
+                table: "EP_Representatives",
+                column: "EducationalProgrammeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_UniversityId",
-                table: "Events",
-                column: "UniversityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Partnerships_CompanyId",
-                table: "Partnerships",
+                name: "IX_PartnershipRequests_CompanyId",
+                table: "PartnershipRequests",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PartnershipRequests_EducationalProgrammeId",
+                table: "PartnershipRequests",
+                column: "EducationalProgrammeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Responses_StudentId",
@@ -332,8 +333,18 @@ namespace WebApi.Migrations
                 column: "VacancyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_UniversityId",
+                name: "IX_StudentCompanyDatas_ResponseId",
+                table: "StudentCompanyDatas",
+                column: "ResponseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_EducationalProgrammeId",
                 table: "Students",
+                column: "EducationalProgrammeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UNI_Representatives_UniversityId",
+                table: "UNI_Representatives",
                 column: "UniversityId");
 
             migrationBuilder.CreateIndex(
@@ -345,25 +356,22 @@ namespace WebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AcademicDiscipline");
+                name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "AcademicSupervisors");
-
-            migrationBuilder.DropTable(
-                name: "CompanyStuff");
-
-            migrationBuilder.DropTable(
-                name: "Employments");
+                name: "EP_Representatives");
 
             migrationBuilder.DropTable(
                 name: "EventRequests");
 
             migrationBuilder.DropTable(
-                name: "Events");
+                name: "PartnershipRequests");
 
             migrationBuilder.DropTable(
-                name: "Partnerships");
+                name: "StudentCompanyDatas");
+
+            migrationBuilder.DropTable(
+                name: "UNI_Representatives");
 
             migrationBuilder.DropTable(
                 name: "Responses");
@@ -375,10 +383,13 @@ namespace WebApi.Migrations
                 name: "Vacancies");
 
             migrationBuilder.DropTable(
-                name: "Universities");
+                name: "EducationalProgrammes");
 
             migrationBuilder.DropTable(
                 name: "Companies");
+
+            migrationBuilder.DropTable(
+                name: "Universities");
         }
     }
 }

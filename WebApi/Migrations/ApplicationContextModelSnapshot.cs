@@ -19,70 +19,6 @@ namespace WebApi.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WebApi.Models.AcademicDiscipline", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UniversityId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UniversityId");
-
-                    b.ToTable("AcademicDiscipline");
-                });
-
-            modelBuilder.Entity("WebApi.Models.AcademicSupervisor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SecondName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telephone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThirdName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UniversityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UniversityId");
-
-                    b.ToTable("AcademicSupervisors");
-                });
-
             modelBuilder.Entity("WebApi.Models.Company", b =>
                 {
                     b.Property<int>("Id")
@@ -104,7 +40,71 @@ namespace WebApi.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("WebApi.Models.CompanyStuff", b =>
+            modelBuilder.Entity("WebApi.Models.EP_Representative", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EducationalProgrammeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telephone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThirdName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EducationalProgrammeId");
+
+                    b.ToTable("EP_Representatives");
+                });
+
+            modelBuilder.Entity("WebApi.Models.EducationalProgramme", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UniversityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("EducationalProgrammes");
+                });
+
+            modelBuilder.Entity("WebApi.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,6 +123,9 @@ namespace WebApi.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
@@ -132,9 +135,6 @@ namespace WebApi.Migrations
                     b.Property<string>("ThirdName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
@@ -142,77 +142,7 @@ namespace WebApi.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("CompanyStuff");
-                });
-
-            modelBuilder.Entity("WebApi.Models.Employment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CompanyReview")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateOfEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateOfStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EmploymentType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentReview")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Employments");
-                });
-
-            modelBuilder.Entity("WebApi.Models.Event", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EventDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EventDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EventReview")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EventType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UniversityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkerDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UniversityId");
-
-                    b.ToTable("Events");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("WebApi.Models.EventRequest", b =>
@@ -222,7 +152,10 @@ namespace WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("CompanyResponse")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EducationalProgrammeResponse")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EventDate")
@@ -234,14 +167,11 @@ namespace WebApi.Migrations
                     b.Property<string>("EventType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Happening")
-                        .HasColumnType("bit");
+                    b.Property<int>("PartnershipRequestId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("RequestSendDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("UniversityId")
-                        .HasColumnType("int");
 
                     b.Property<string>("WorkerDescription")
                         .HasColumnType("nvarchar(max)");
@@ -251,7 +181,7 @@ namespace WebApi.Migrations
                     b.ToTable("EventRequests");
                 });
 
-            modelBuilder.Entity("WebApi.Models.Partnership", b =>
+            modelBuilder.Entity("WebApi.Models.PartnershipRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -264,11 +194,22 @@ namespace WebApi.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CompanyResponse")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EducationalProgrammeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EducationalProgrammeResponse")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Partnerships");
+                    b.HasIndex("EducationalProgrammeId");
+
+                    b.ToTable("PartnershipRequests");
                 });
 
             modelBuilder.Entity("WebApi.Models.Response", b =>
@@ -278,17 +219,17 @@ namespace WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("RespondedSide")
-                        .HasColumnType("bit");
+                    b.Property<int>("Initiator")
+                        .HasColumnType("int");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VacancyId")
+                    b.Property<int>("To_next_part")
                         .HasColumnType("int");
 
-                    b.Property<bool>("toInterview")
-                        .HasColumnType("bit");
+                    b.Property<int>("VacancyId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -309,10 +250,10 @@ namespace WebApi.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("EducationalProgrammeId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Faculty")
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -321,16 +262,13 @@ namespace WebApi.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PortfolioURL")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ResumeURL")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecondName")
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Speciality")
+                    b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
@@ -342,11 +280,78 @@ namespace WebApi.Migrations
                     b.Property<string>("ThirdName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UniversityId")
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EducationalProgrammeId");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("WebApi.Models.StudentCompanyData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CompanyReview")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateOfEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmploymentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ResponseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserType")
+                    b.Property<string>("StudentReview")
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResponseId");
+
+                    b.ToTable("StudentCompanyDatas");
+                });
+
+            modelBuilder.Entity("WebApi.Models.UNI_Representative", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telephone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThirdName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UniversityId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
@@ -355,7 +360,7 @@ namespace WebApi.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("Students");
+                    b.ToTable("UNI_Representatives");
                 });
 
             modelBuilder.Entity("WebApi.Models.University", b =>
@@ -389,17 +394,17 @@ namespace WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CompanyDescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Conditions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("EmploymentType")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IsVisible")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -413,9 +418,6 @@ namespace WebApi.Migrations
                     b.Property<string>("Salary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TypeOfEmployment")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
@@ -423,58 +425,44 @@ namespace WebApi.Migrations
                     b.ToTable("Vacancies");
                 });
 
-            modelBuilder.Entity("WebApi.Models.AcademicDiscipline", b =>
+            modelBuilder.Entity("WebApi.Models.EP_Representative", b =>
+                {
+                    b.HasOne("WebApi.Models.EducationalProgramme", null)
+                        .WithMany("EP_Representatives")
+                        .HasForeignKey("EducationalProgrammeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApi.Models.EducationalProgramme", b =>
                 {
                     b.HasOne("WebApi.Models.University", null)
-                        .WithMany("AcademicDisciplines")
+                        .WithMany("EducationalProgrammes")
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebApi.Models.AcademicSupervisor", b =>
-                {
-                    b.HasOne("WebApi.Models.University", null)
-                        .WithMany("AcademicSupervisors")
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApi.Models.CompanyStuff", b =>
+            modelBuilder.Entity("WebApi.Models.Employee", b =>
                 {
                     b.HasOne("WebApi.Models.Company", null)
-                        .WithMany("CompanyStuffs")
+                        .WithMany("Employees")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebApi.Models.Employment", b =>
-                {
-                    b.HasOne("WebApi.Models.Student", null)
-                        .WithMany("Employments")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApi.Models.Event", b =>
-                {
-                    b.HasOne("WebApi.Models.University", null)
-                        .WithMany("Events")
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApi.Models.Partnership", b =>
+            modelBuilder.Entity("WebApi.Models.PartnershipRequest", b =>
                 {
                     b.HasOne("WebApi.Models.Company", null)
                         .WithMany("Partnerships")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("WebApi.Models.EducationalProgramme", null)
+                        .WithMany("Partnerships")
+                        .HasForeignKey("EducationalProgrammeId");
                 });
 
             modelBuilder.Entity("WebApi.Models.Response", b =>
@@ -494,8 +482,26 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Models.Student", b =>
                 {
-                    b.HasOne("WebApi.Models.University", null)
+                    b.HasOne("WebApi.Models.EducationalProgramme", null)
                         .WithMany("Students")
+                        .HasForeignKey("EducationalProgrammeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApi.Models.StudentCompanyData", b =>
+                {
+                    b.HasOne("WebApi.Models.Response", null)
+                        .WithMany("StudentCompanyDatas")
+                        .HasForeignKey("ResponseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApi.Models.UNI_Representative", b =>
+                {
+                    b.HasOne("WebApi.Models.University", null)
+                        .WithMany("UNI_Representatives")
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -512,29 +518,37 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Models.Company", b =>
                 {
-                    b.Navigation("CompanyStuffs");
+                    b.Navigation("Employees");
 
                     b.Navigation("Partnerships");
 
                     b.Navigation("Vacancies");
                 });
 
+            modelBuilder.Entity("WebApi.Models.EducationalProgramme", b =>
+                {
+                    b.Navigation("EP_Representatives");
+
+                    b.Navigation("Partnerships");
+
+                    b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("WebApi.Models.Response", b =>
+                {
+                    b.Navigation("StudentCompanyDatas");
+                });
+
             modelBuilder.Entity("WebApi.Models.Student", b =>
                 {
-                    b.Navigation("Employments");
-
                     b.Navigation("Responses");
                 });
 
             modelBuilder.Entity("WebApi.Models.University", b =>
                 {
-                    b.Navigation("AcademicDisciplines");
+                    b.Navigation("EducationalProgrammes");
 
-                    b.Navigation("AcademicSupervisors");
-
-                    b.Navigation("Events");
-
-                    b.Navigation("Students");
+                    b.Navigation("UNI_Representatives");
                 });
 
             modelBuilder.Entity("WebApi.Models.Vacancy", b =>
