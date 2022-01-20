@@ -9,7 +9,10 @@ namespace WebApi.Repositories
     public class EducationalProgrammeRepository : IRepository<EducationalProgramme>
     {
         private readonly ApplicationContext context;
-
+        public EducationalProgrammeRepository(ApplicationContext Context)
+        {
+            context = Context;
+        }
         public async Task<EducationalProgramme> Create(EducationalProgramme obj)
         {
             await context.EducationalProgrammes.AddAsync(obj);

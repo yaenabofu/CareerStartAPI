@@ -71,8 +71,11 @@ namespace WebApi.Migrations
                     b.Property<string>("ThirdName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Username")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -135,8 +138,11 @@ namespace WebApi.Migrations
                     b.Property<string>("ThirdName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Username")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -280,8 +286,11 @@ namespace WebApi.Migrations
                     b.Property<string>("ThirdName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Username")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -350,11 +359,14 @@ namespace WebApi.Migrations
                     b.Property<string>("ThirdName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UniversityId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("Username")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

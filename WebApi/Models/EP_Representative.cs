@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Models
 {
-    public class EP_Representative : BaseUser
+    public class EP_Representative : User
     {
         public int EducationalProgrammeId { get; set; }
     }

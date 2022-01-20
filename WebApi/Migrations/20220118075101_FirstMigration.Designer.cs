@@ -10,7 +10,7 @@ using WebApi.Models;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220113062220_FirstMigration")]
+    [Migration("20220118075101_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,8 +73,11 @@ namespace WebApi.Migrations
                     b.Property<string>("ThirdName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Username")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -137,8 +140,11 @@ namespace WebApi.Migrations
                     b.Property<string>("ThirdName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Username")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -282,8 +288,11 @@ namespace WebApi.Migrations
                     b.Property<string>("ThirdName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Username")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -352,11 +361,14 @@ namespace WebApi.Migrations
                     b.Property<string>("ThirdName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UniversityId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("Username")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

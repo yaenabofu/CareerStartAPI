@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +36,38 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                 .AddJwtBearer(options =>
+                 {
+                     options.RequireHttpsMetadata = false;
+                     options.TokenValidationParameters = new TokenValidationParameters
+                     {
+                         // укзывает, будет ли валидироваться издатель при валидации токена
+                         ValidateIssuer = true,
+                         // строка, представляющая издателя
+                         ValidIssuer = AuthOptions.ISSUER,
+
+                         // будет ли валидироваться потребитель токена
+                         ValidateAudience = true,
+                         // установка потребителя токена
+                         ValidAudience = AuthOptions.AUDIENCE,
+                         // будет ли валидироваться время существования
+                         ValidateLifetime = true,
+
+                         // установка ключа безопасности
+                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                         // валидация ключа безопасности
+                         ValidateIssuerSigningKey = true,
+                     };
+                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser()
+                .Build();
+            });
+
             services.AddMvc();
 
             services.AddDbContext<ApplicationContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -50,6 +84,7 @@ namespace WebApi
             services.AddScoped<IRepository<Student>, StudentRepository>();
             services.AddScoped<IRepository<University>, UniversityRepository>();
             services.AddScoped<IRepository<Vacancy>, VacancyRepository>();
+            services.AddScoped<IOAuth, OAuthRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -68,11 +103,11 @@ namespace WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
+            app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Models
 {
-    public class Student : BaseUser
+    public class Student : User
     {
         public int EducationalProgrammeId { get; set; }
         public DateTime DateOfBirth { get; set; }
