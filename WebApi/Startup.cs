@@ -17,7 +17,9 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using WebApi.Interfaces;
 using WebApi.Models;
 using WebApi.Repositories;
 using WebApi.Repository;
@@ -33,58 +35,54 @@ namespace WebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                 .AddJwtBearer(options =>
-                 {
-                     options.RequireHttpsMetadata = false;
-                     options.TokenValidationParameters = new TokenValidationParameters
-                     {
-                         // укзывает, будет ли валидироваться издатель при валидации токена
-                         ValidateIssuer = true,
-                         // строка, представляющая издателя
-                         ValidIssuer = AuthOptions.ISSUER,
-
-                         // будет ли валидироваться потребитель токена
-                         ValidateAudience = true,
-                         // установка потребителя токена
-                         ValidAudience = AuthOptions.AUDIENCE,
-                         // будет ли валидироваться время существования
-                         ValidateLifetime = true,
-
-                         // установка ключа безопасности
-                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                         // валидация ключа безопасности
-                         ValidateIssuerSigningKey = true,
-                     };
-                 });
-
-            services.AddAuthorization(options =>
+            services.AddAuthentication(opt =>
             {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
-                .RequireAuthenticatedUser()
-                .Build();
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = "http://localhost:44350",
+        ValidAudience = "http://localhost:44350",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+    };
+});
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
             });
 
             services.AddMvc();
-
+                
             services.AddDbContext<ApplicationContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddScoped<IRepository<Company>, CompanyRepository>();
-            services.AddScoped<IRepository<EP_Representative>, EP_RepresentativeRepository>();
-            services.AddScoped<IRepository<Employee>, EmployeeRepository>();
+            services.AddTransient<ITokenService, TokenRepository>();
             services.AddScoped<IRepository<StudentCompanyData>, StudentCompanyDataRepository>();
             services.AddScoped<IRepository<EducationalProgramme>, EducationalProgrammeRepository>();
-            services.AddScoped<IRepository<UNI_Representative>, UNI_RepresentativeRepository>();
+            services.AddScoped<IRepository<UserEducationalProgrammeData>, UserEducationalProgrammeDataRepository>();
             services.AddScoped<IRepository<EventRequest>, EventRequestRepository>();
             services.AddScoped<IRepository<PartnershipRequest>, PartnershipRequestRepository>();
             services.AddScoped<IRepository<Response>, ResponseRepository>();
-            services.AddScoped<IRepository<Student>, StudentRepository>();
+            services.AddScoped<IRepository<Place>, PlaceRepository>();
             services.AddScoped<IRepository<University>, UniversityRepository>();
             services.AddScoped<IRepository<Vacancy>, VacancyRepository>();
-            services.AddScoped<IOAuth, OAuthRepository>();
+            services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IRepository<Company>, CompanyRepository>();
+            services.AddScoped<IRepository<Resume>, ResumeRepository>();
+            services.AddScoped<IRepository<Role>, RoleRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -94,7 +92,6 @@ namespace WebApi
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -106,7 +103,7 @@ namespace WebApi
             app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
-
+            app.UseCors("EnableCORS");
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

@@ -11,14 +11,13 @@ namespace WebApi.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
-        public string Rating { get; set; }
-        public ICollection<UNI_Representative> UNI_Representatives { get; set; }
+        public double Rating { get; set; }
+        public int PlaceId { get; set; }
         public ICollection<EducationalProgramme> EducationalProgrammes { get; set; }
 
         public University()
         {
             EducationalProgrammes = new List<EducationalProgramme>();
-            UNI_Representatives = new List<UNI_Representative>();
         }
     }
 }

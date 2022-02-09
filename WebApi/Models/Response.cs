@@ -8,10 +8,10 @@ namespace WebApi.Models
     public class Response
     {
         public int Id { get; set; }
-        public int StudentId { get; set; }
+        public int ResumeId { get; set; }
         public int VacancyId { get; set; }
         public int Initiator { get; set; }
-        public int To_next_part { get; set; }
+        public int Answer { get; set; }
 
         public ICollection<StudentCompanyData> StudentCompanyDatas { get; set; }
 

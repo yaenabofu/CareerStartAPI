@@ -11,6 +11,7 @@ namespace WebApi.Models
         public int CompanyId { get; set; }
         public string EmploymentType { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public string Requirements { get; set; }
         public string Responsibilities { get; set; }
         public string Conditions { get; set; }

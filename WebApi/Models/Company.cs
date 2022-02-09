@@ -8,13 +8,13 @@ namespace WebApi.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
-        public ICollection<Employee> Employees { get; set; }
+        public double Rating { get; set; }
+        public int PlaceId { get; set; }
         public ICollection<PartnershipRequest> Partnerships { get; set; }
         public ICollection<Vacancy> Vacancies { get; set; }
 
         public Company()
         {
-            Employees = new List<Employee>();
             Partnerships = new List<PartnershipRequest>();
             Vacancies = new List<Vacancy>();
         }

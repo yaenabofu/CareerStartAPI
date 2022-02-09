@@ -1,21 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Models;
 using WebApi.Repository;
 
 namespace WebApi.Repositories
 {
-    public class UNI_RepresentativeRepository : IRepository<UNI_Representative>
+    public class ResumeRepository : IRepository<Resume>
     {
         private readonly ApplicationContext context;
-        public UNI_RepresentativeRepository(ApplicationContext Context)
+        public ResumeRepository(ApplicationContext Context)
         {
             context = Context;
         }
-        public async Task<UNI_Representative> Create(UNI_Representative obj)
+        public async Task<Resume> Create(Resume obj)
         {
-            await context.UNI_Representatives.AddAsync(obj);
+            await context.Resumes.AddAsync(obj);
             await context.SaveChangesAsync();
 
             return obj;
@@ -23,11 +25,11 @@ namespace WebApi.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            UNI_Representative obj = await context.UNI_Representatives.FindAsync(id);
+            Resume obj = await context.Resumes.FindAsync(id);
 
             if (obj != null)
             {
-                context.UNI_Representatives.Remove(obj);
+                context.Resumes.Remove(obj);
                 await context.SaveChangesAsync();
 
                 return true;
@@ -36,17 +38,17 @@ namespace WebApi.Repositories
             return false;
         }
 
-        public async Task<IEnumerable<UNI_Representative>> Get()
+        public async Task<IEnumerable<Resume>> Get()
         {
-            return await context.UNI_Representatives.ToListAsync();
+            return await context.Resumes.ToListAsync();
         }
 
-        public async Task<UNI_Representative> Get(int id)
+        public async Task<Resume> Get(int id)
         {
-            return await context.UNI_Representatives.FindAsync(id);
+            return await context.Resumes.FindAsync(id);
         }
 
-        public async Task<UNI_Representative> Update(UNI_Representative obj)
+        public async Task<Resume> Update(Resume obj)
         {
             context.Entry(obj).State = EntityState.Modified;
             await context.SaveChangesAsync();

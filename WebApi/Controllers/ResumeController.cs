@@ -10,52 +10,52 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StudentController : Controller
+    public class ResumeController : Controller
     {
-        private readonly IRepository<Student> studentRepo;
-        public StudentController(IRepository<Student> StudentRepo)
+        private readonly IRepository<Resume> resumeRepo;
+        public ResumeController(IRepository<Resume> ResumeRepo)
         {
-            this.studentRepo = StudentRepo;
+            this.resumeRepo = ResumeRepo;
         }
 
         [HttpGet("Get")]
         public async Task<IActionResult> Get()
         {
-            var students = await studentRepo.Get();
+            var data = await resumeRepo.Get();
 
-            return Ok(students);
+            return Ok(data);
         }
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var student = await studentRepo.Get(id);
+            var data = await resumeRepo.Get(id);
 
-            if (student != null)
+            if (data != null)
             {
-                return Ok(student);
+                return Ok(data);
             }
 
             return NotFound();
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] Student student)
+        public async Task<IActionResult> Create([FromBody] Resume data)
         {
-            await studentRepo.Create(student);
+            await resumeRepo.Create(data);
 
-            return Ok(student);
+            return Ok(data);
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody] Student student)
+        public async Task<IActionResult> Update([FromBody] Resume data)
         {
-            await studentRepo.Update(student);
+            await resumeRepo.Update(data);
 
-            return Ok(student);
+            return Ok(data);
         }
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            if (await studentRepo.Delete(id))
+            if (await resumeRepo.Delete(id))
             {
                 return Ok(id);
             }

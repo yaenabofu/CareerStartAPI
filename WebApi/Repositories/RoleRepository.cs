@@ -8,16 +8,16 @@ using WebApi.Repository;
 
 namespace WebApi.Repositories
 {
-    public class StudentRepository : IRepository<Student>
+    public class RoleRepository : IRepository<Role>
     {
         private readonly ApplicationContext context;
-        public StudentRepository(ApplicationContext Context)
+        public RoleRepository(ApplicationContext Context)
         {
             context = Context;
         }
-        public async Task<Student> Create(Student obj)
+        public async Task<Role> Create(Role obj)
         {
-            await context.Students.AddAsync(obj);
+            await context.Roles.AddAsync(obj);
             await context.SaveChangesAsync();
 
             return obj;
@@ -25,11 +25,11 @@ namespace WebApi.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            Student obj = await context.Students.FindAsync(id);
+            Role obj = await context.Roles.FindAsync(id);
 
             if (obj != null)
             {
-                context.Students.Remove(obj);
+                context.Roles.Remove(obj);
                 await context.SaveChangesAsync();
 
                 return true;
@@ -38,17 +38,17 @@ namespace WebApi.Repositories
             return false;
         }
 
-        public async Task<IEnumerable<Student>> Get()
+        public async Task<IEnumerable<Role>> Get()
         {
-            return await context.Students.ToListAsync();
+            return await context.Roles.ToListAsync();
         }
 
-        public async Task<Student> Get(int id)
+        public async Task<Role> Get(int id)
         {
-            return await context.Students.FindAsync(id);
+            return await context.Roles.FindAsync(id);
         }
 
-        public async Task<Student> Update(Student obj)
+        public async Task<Role> Update(Role obj)
         {
             context.Entry(obj).State = EntityState.Modified;
             await context.SaveChangesAsync();

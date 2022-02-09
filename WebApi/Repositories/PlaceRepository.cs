@@ -8,16 +8,16 @@ using WebApi.Repository;
 
 namespace WebApi.Repositories
 {
-    public class EmployeeRepository : IRepository<Employee>
+    public class PlaceRepository : IRepository<Place>
     {
         private readonly ApplicationContext context;
-        public EmployeeRepository(ApplicationContext Context)
+        public PlaceRepository(ApplicationContext Context)
         {
             context = Context;
         }
-        public async Task<Employee> Create(Employee obj)
+        public async Task<Place> Create(Place obj)
         {
-            await context.Employees.AddAsync(obj);
+            await context.Places.AddAsync(obj);
             await context.SaveChangesAsync();
 
             return obj;
@@ -25,11 +25,11 @@ namespace WebApi.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            Employee obj = await context.Employees.FindAsync(id);
+            Place obj = await context.Places.FindAsync(id);
 
             if (obj != null)
             {
-                context.Employees.Remove(obj);
+                context.Places.Remove(obj);
                 await context.SaveChangesAsync();
 
                 return true;
@@ -38,17 +38,17 @@ namespace WebApi.Repositories
             return false;
         }
 
-        public async Task<IEnumerable<Employee>> Get()
+        public async Task<IEnumerable<Place>> Get()
         {
-            return await context.Employees.ToListAsync();
+            return await context.Places.ToListAsync();
         }
 
-        public async Task<Employee> Get(int id)
+        public async Task<Place> Get(int id)
         {
-            return await context.Employees.FindAsync(id);
+            return await context.Places.FindAsync(id);
         }
 
-        public async Task<Employee> Update(Employee obj)
+        public async Task<Place> Update(Place obj)
         {
             context.Entry(obj).State = EntityState.Modified;
             await context.SaveChangesAsync();

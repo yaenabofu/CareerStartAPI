@@ -2,22 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using WebApi.Models;
 using WebApi.Repository;
 
+
 namespace WebApi.Repositories
 {
-    public class EP_RepresentativeRepository : IRepository<EP_Representative>
+    public class UserRepository : IRepository<User>
     {
         private readonly ApplicationContext context;
-        public EP_RepresentativeRepository(ApplicationContext Context)
+        public UserRepository(ApplicationContext Context)
         {
             context = Context;
         }
-        public async Task<EP_Representative> Create(EP_Representative obj)
+        public async Task<User> Create(User obj)
         {
-            await context.EP_Representatives.AddAsync(obj);
+            await context.Users.AddAsync(obj);
             await context.SaveChangesAsync();
 
             return obj;
@@ -25,11 +27,11 @@ namespace WebApi.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            EP_Representative obj = await context.EP_Representatives.FindAsync(id);
+            User obj = await context.Users.FindAsync(id);
 
             if (obj != null)
             {
-                context.EP_Representatives.Remove(obj);
+                context.Users.Remove(obj);
                 await context.SaveChangesAsync();
 
                 return true;
@@ -38,17 +40,17 @@ namespace WebApi.Repositories
             return false;
         }
 
-        public async Task<IEnumerable<EP_Representative>> Get()
+        public async Task<IEnumerable<User>> Get()
         {
-            return await context.EP_Representatives.ToListAsync();
+            return await context.Users.ToListAsync();
         }
 
-        public async Task<EP_Representative> Get(int id)
+        public async Task<User> Get(int id)
         {
-            return await context.EP_Representatives.FindAsync(id);
+            return await context.Users.FindAsync(id);
         }
 
-        public async Task<EP_Representative> Update(EP_Representative obj)
+        public async Task<User> Update(User obj)
         {
             context.Entry(obj).State = EntityState.Modified;
             await context.SaveChangesAsync();
