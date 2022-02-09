@@ -67,7 +67,8 @@ namespace WebApi
             });
 
             services.AddMvc();
-                
+
+            services.AddScoped<IAuth<object>, AuthRepository>();
             services.AddDbContext<ApplicationContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<ITokenService, TokenRepository>();
             services.AddScoped<IRepository<StudentCompanyData>, StudentCompanyDataRepository>();

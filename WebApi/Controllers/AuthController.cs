@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using WebApi.Interfaces;
 using WebApi.Models;
+using WebApi.Repository;
 
 namespace WebApi.Controllers
 {
@@ -14,41 +18,46 @@ namespace WebApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        readonly ApplicationContext userContext;
-        readonly ITokenService tokenService;
-        public AuthController(ApplicationContext userContext, ITokenService tokenService)
+        readonly IAuth<object> userAuth;
+        public AuthController(IAuth<object> UserAuth)
         {
-            this.userContext = userContext ?? throw new ArgumentNullException(nameof(userContext));
-            this.tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
+            this.userAuth = UserAuth ?? throw new ArgumentNullException(nameof(UserAuth));
         }
+        [HttpPost, Route("Register")]
+        public async Task<IActionResult> Register([FromBody] Register registerModel)
+        {
+            User user = await userAuth.Register(registerModel) as User;
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok(new
+                {
+                    user
+                });
+            }
+        }
+
         [HttpPost, Route("Login")]
         public async Task<IActionResult> Login([FromBody] Login loginModel)
         {
-            if (loginModel == null)
-            {
-                return BadRequest("Invalid client request");
-            }
-            var user = await userContext.Users.SingleOrDefaultAsync(u => (u.Email == loginModel.Email) &&
-                                        (u.Password == loginModel.Password));
+            UserExtraInfo user = await userAuth.Login(loginModel) as UserExtraInfo;
+
             if (user == null)
             {
-                return Unauthorized();
+                return BadRequest();
             }
-            var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, loginModel.Email),
-            new Claim(ClaimTypes.Role, "Manager")
-        };
-            var accessToken = tokenService.GenerateAccessToken(claims);
-            var refreshToken = tokenService.GenerateRefreshToken();
-            user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
-            await userContext.SaveChangesAsync();
-            return Ok(new
+            else
             {
-                Token = accessToken,
-                RefreshToken = refreshToken
-            });
+                return Ok(new
+                {
+                    Token = user.AccessToken,
+                    RefreshToken = user.RefreshToken
+                });
+            }
         }
     }
 }
