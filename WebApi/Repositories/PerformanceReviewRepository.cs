@@ -8,16 +8,16 @@ using WebApi.Repository;
 
 namespace WebApi.Repositories
 {
-    public class PartnershipRequestRepository : IRepository<PartnershipRequest>
+    public class PerformanceReviewRepository : IRepository<PerformanceReview>
     {
         private readonly ApplicationContext context;
-        public PartnershipRequestRepository(ApplicationContext Context)
+        public PerformanceReviewRepository(ApplicationContext Context)
         {
             context = Context;
         }
-        public async Task<PartnershipRequest> Create(PartnershipRequest obj)
+        public async Task<PerformanceReview> Create(PerformanceReview obj)
         {
-            await context.PartnershipRequests.AddAsync(obj);
+            await context.PerformanceReviews.AddAsync(obj);
             await context.SaveChangesAsync();
 
             return obj;
@@ -25,11 +25,11 @@ namespace WebApi.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            PartnershipRequest obj = await context.PartnershipRequests.FindAsync(id);
+            PerformanceReview obj = await context.PerformanceReviews.FindAsync(id);
 
             if (obj != null)
             {
-                context.PartnershipRequests.Remove(obj);
+                context.PerformanceReviews.Remove(obj);
                 await context.SaveChangesAsync();
 
                 return true;
@@ -38,17 +38,17 @@ namespace WebApi.Repositories
             return false;
         }
 
-        public async Task<IEnumerable<PartnershipRequest>> Get()
+        public async Task<IEnumerable<PerformanceReview>> Get()
         {
-            return await context.PartnershipRequests.ToListAsync();
+            return await context.PerformanceReviews.ToListAsync();
         }
 
-        public async Task<PartnershipRequest> Get(int id)
+        public async Task<PerformanceReview> Get(int id)
         {
-            return await context.PartnershipRequests.FindAsync(id);
+            return await context.PerformanceReviews.FindAsync(id);
         }
 
-        public async Task<PartnershipRequest> Update(PartnershipRequest obj)
+        public async Task<PerformanceReview> Update(PerformanceReview obj)
         {
             context.Entry(obj).State = EntityState.Modified;
             await context.SaveChangesAsync();

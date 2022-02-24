@@ -7,8 +7,8 @@ namespace WebApi.Controllers
 {
     public class EducationalProgrammeController : Controller
     {
-        private readonly IRepository<EducationalProgramme> educationalProgrammes;
-        public EducationalProgrammeController(IRepository<EducationalProgramme> AcademicSupervisorRepo)
+        private readonly IRepository<Department> educationalProgrammes;
+        public EducationalProgrammeController(IRepository<Department> AcademicSupervisorRepo)
         {
             this.educationalProgrammes = AcademicSupervisorRepo;
         }
@@ -33,7 +33,7 @@ namespace WebApi.Controllers
             return NotFound();
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] EducationalProgramme educationalProgramme)
+        public async Task<IActionResult> Create([FromBody] Department educationalProgramme)
         {
             await educationalProgrammes.Create(educationalProgramme);
 
@@ -41,7 +41,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody] EducationalProgramme educationalProgramme)
+        public async Task<IActionResult> Update([FromBody] Department educationalProgramme)
         {
             await educationalProgrammes.Update(educationalProgramme);
 

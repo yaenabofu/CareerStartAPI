@@ -10,10 +10,10 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StudentCompanyDataController : Controller
+    public class PerformanceReviewController : Controller
     {
-        private readonly IRepository<StudentCompanyData> employmentRepo;
-        public StudentCompanyDataController(IRepository<StudentCompanyData> EmploymentRepo)
+        private readonly IRepository<PerformanceReview> employmentRepo;
+        public PerformanceReviewController(IRepository<PerformanceReview> EmploymentRepo)
         {
             this.employmentRepo = EmploymentRepo;
         }
@@ -38,7 +38,7 @@ namespace WebApi.Controllers
             return NotFound();
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] StudentCompanyData employment)
+        public async Task<IActionResult> Create([FromBody] PerformanceReview employment)
         {
             await employmentRepo.Create(employment);
 
@@ -46,7 +46,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody] StudentCompanyData employment)
+        public async Task<IActionResult> Update([FromBody] PerformanceReview employment)
         {
             await employmentRepo.Update(employment);
 

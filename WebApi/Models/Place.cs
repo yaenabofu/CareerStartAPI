@@ -3,6 +3,7 @@
     public class Place
     {
         public int Id { get; set; }
-        public int Type { get; set; }
+        public int PlaceId { get; set; }
+        public string PlaceType { get; set; }
     }
 }

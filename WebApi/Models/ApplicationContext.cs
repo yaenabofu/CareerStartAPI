@@ -20,14 +20,12 @@ namespace WebApi.Models
         public DbSet<Resume> Resumes { get; set; }
         public DbSet<Place> Places { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<UserEducationalProgrammeData> UserEducationalProgrammeDatas { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<StudentCompanyData> StudentCompanyDatas { get; set; }
+        public DbSet<PerformanceReview> PerformanceReviews { get; set; }
         public DbSet<EventRequest> EventRequests { get; set; }
-        public DbSet<PartnershipRequest> PartnershipRequests { get; set; }
         public DbSet<Response> Responses { get; set; }
         public DbSet<University> Universities { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
-        public DbSet<EducationalProgramme> EducationalProgrammes { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }

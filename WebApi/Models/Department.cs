@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 
 namespace WebApi.Models
 {
-    public class EducationalProgramme
+    public class Department
     {
         public int Id { get; set; }
         public int UniversityId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public ICollection<PartnershipRequest> Partnerships { get; set; }
+        public ICollection<Place> Places { get; set; }
 
-        public EducationalProgramme()
+        public Department()
         {
-            Partnerships = new List<PartnershipRequest>();
+            Places = new List<Place>();
         }
     }
 }

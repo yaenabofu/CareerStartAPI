@@ -10,14 +10,17 @@ namespace WebApi.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Location { get; set; }
         public double Rating { get; set; }
-        public int PlaceId { get; set; }
-        public ICollection<EducationalProgramme> EducationalProgrammes { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public ICollection<Department> Departments { get; set; }
+        public ICollection<EventRequest> EventRequests { get; set; }
 
         public University()
         {
-            EducationalProgrammes = new List<EducationalProgramme>();
+            EventRequests = new List<EventRequest>();
+            Departments = new List<Department>();
         }
     }
 }

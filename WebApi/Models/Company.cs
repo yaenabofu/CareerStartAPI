@@ -9,14 +9,17 @@ namespace WebApi.Models
         public string Description { get; set; }
         public string Location { get; set; }
         public double Rating { get; set; }
-        public int PlaceId { get; set; }
-        public ICollection<PartnershipRequest> Partnerships { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
         public ICollection<Vacancy> Vacancies { get; set; }
-
+        public ICollection<Place> Places { get; set; }
+        public ICollection<EventRequest> EventRequests { get; set; }
         public Company()
         {
-            Partnerships = new List<PartnershipRequest>();
             Vacancies = new List<Vacancy>();
+            Places = new List<Place>();
+            EventRequests = new List<EventRequest>();
         }
     }
 }

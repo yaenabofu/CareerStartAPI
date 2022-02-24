@@ -11,13 +11,12 @@ namespace WebApi.Models
         public int ResumeId { get; set; }
         public int VacancyId { get; set; }
         public int Initiator { get; set; }
-        public int Answer { get; set; }
-
-        public ICollection<StudentCompanyData> StudentCompanyDatas { get; set; }
+        public DateTime Date { get; set; }
+        public ICollection<PerformanceReview> PerformanceReviews { get; set; }
 
         public Response()
         {
-            StudentCompanyDatas = new List<StudentCompanyData>();
+            PerformanceReviews = new List<PerformanceReview>();
         }
     }
 }

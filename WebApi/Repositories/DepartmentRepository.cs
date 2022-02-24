@@ -6,16 +6,16 @@ using WebApi.Repository;
 
 namespace WebApi.Repositories
 {
-    public class EducationalProgrammeRepository : IRepository<EducationalProgramme>
+    public class DepartmentRepository : IRepository<Department>
     {
         private readonly ApplicationContext context;
-        public EducationalProgrammeRepository(ApplicationContext Context)
+        public DepartmentRepository(ApplicationContext Context)
         {
             context = Context;
         }
-        public async Task<EducationalProgramme> Create(EducationalProgramme obj)
+        public async Task<Department> Create(Department obj)
         {
-            await context.EducationalProgrammes.AddAsync(obj);
+            await context.Departments.AddAsync(obj);
             await context.SaveChangesAsync();
 
             return obj;
@@ -23,11 +23,11 @@ namespace WebApi.Repositories
 
         public async Task<bool> Delete(int id)
         {
-            EducationalProgramme obj = await context.EducationalProgrammes.FindAsync(id);
+            Department obj = await context.Departments.FindAsync(id);
 
             if (obj != null)
             {
-                context.EducationalProgrammes.Remove(obj);
+                context.Departments.Remove(obj);
                 await context.SaveChangesAsync();
 
                 return true;
@@ -36,17 +36,17 @@ namespace WebApi.Repositories
             return false;
         }
 
-        public async Task<IEnumerable<EducationalProgramme>> Get()
+        public async Task<IEnumerable<Department>> Get()
         {
-            return await context.EducationalProgrammes.ToListAsync();
+            return await context.Departments.ToListAsync();
         }
 
-        public async Task<EducationalProgramme> Get(int id)
+        public async Task<Department> Get(int id)
         {
-            return await context.EducationalProgrammes.FindAsync(id);
+            return await context.Departments.FindAsync(id);
         }
 
-        public async Task<EducationalProgramme> Update(EducationalProgramme оbj)
+        public async Task<Department> Update(Department оbj)
         {
             context.Entry(оbj).State = EntityState.Modified;
             await context.SaveChangesAsync();
