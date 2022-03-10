@@ -21,7 +21,6 @@ namespace WebApi.Models
         public DbSet<Place> Places { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<PerformanceReview> PerformanceReviews { get; set; }
         public DbSet<EventRequest> EventRequests { get; set; }
         public DbSet<Response> Responses { get; set; }
         public DbSet<University> Universities { get; set; }

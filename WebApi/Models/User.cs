@@ -15,8 +15,10 @@ namespace WebApi.Models
         public string Password { get; set; }
         public int RoleId { get; set; }
         public int PlaceId { get; set; }
+        public int RegisterStatus { get; set; }
+        int Gender { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenExpiryTime { get; set; }
-        public int RegisterStatus { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using WebApi.Models;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220224155315_InitialMigration")]
+    [Migration("20220310055432_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,9 +42,6 @@ namespace WebApi.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
 
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
@@ -123,32 +120,6 @@ namespace WebApi.Migrations
                     b.ToTable("EventRequests");
                 });
 
-            modelBuilder.Entity("WebApi.Models.PerformanceReview", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CompanyReview")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmploymentType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ResponseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentReview")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResponseId");
-
-                    b.ToTable("PerformanceReviews");
-                });
-
             modelBuilder.Entity("WebApi.Models.Place", b =>
                 {
                     b.Property<int>("Id")
@@ -193,6 +164,9 @@ namespace WebApi.Migrations
                     b.Property<int>("ResumeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<int>("VacancyId")
                         .HasColumnType("int");
 
@@ -212,16 +186,10 @@ namespace WebApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DateOfBirth")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("JobInfo")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PersonalInfo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Salary")
@@ -275,9 +243,6 @@ namespace WebApi.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
@@ -292,6 +257,9 @@ namespace WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -389,15 +357,6 @@ namespace WebApi.Migrations
                         .HasForeignKey("UniversityId");
                 });
 
-            modelBuilder.Entity("WebApi.Models.PerformanceReview", b =>
-                {
-                    b.HasOne("WebApi.Models.Response", null)
-                        .WithMany("PerformanceReviews")
-                        .HasForeignKey("ResponseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebApi.Models.Place", b =>
                 {
                     b.HasOne("WebApi.Models.Company", null)
@@ -445,11 +404,6 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Models.Department", b =>
                 {
                     b.Navigation("Places");
-                });
-
-            modelBuilder.Entity("WebApi.Models.Response", b =>
-                {
-                    b.Navigation("PerformanceReviews");
                 });
 
             modelBuilder.Entity("WebApi.Models.Resume", b =>

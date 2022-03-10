@@ -16,7 +16,6 @@ namespace WebApi.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rating = table.Column<double>(type: "float", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -33,11 +32,9 @@ namespace WebApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    PersonalInfo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JobInfo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Salary = table.Column<int>(type: "int", nullable: false),
-                    DateOfBirth = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -67,7 +64,6 @@ namespace WebApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rating = table.Column<double>(type: "float", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -90,9 +86,10 @@ namespace WebApi.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     PlaceId = table.Column<int>(type: "int", nullable: false),
+                    RegisterStatus = table.Column<int>(type: "int", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RegisterStatus = table.Column<int>(type: "int", nullable: false)
+                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -190,6 +187,7 @@ namespace WebApi.Migrations
                     ResumeId = table.Column<int>(type: "int", nullable: false),
                     VacancyId = table.Column<int>(type: "int", nullable: false),
                     Initiator = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -237,28 +235,6 @@ namespace WebApi.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PerformanceReviews",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentReview = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyReview = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmploymentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ResponseId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PerformanceReviews", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PerformanceReviews_Responses_ResponseId",
-                        column: x => x.ResponseId,
-                        principalTable: "Responses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_UniversityId",
                 table: "Departments",
@@ -273,11 +249,6 @@ namespace WebApi.Migrations
                 name: "IX_EventRequests_UniversityId",
                 table: "EventRequests",
                 column: "UniversityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PerformanceReviews_ResponseId",
-                table: "PerformanceReviews",
-                column: "ResponseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Places_CompanyId",
@@ -311,19 +282,16 @@ namespace WebApi.Migrations
                 name: "EventRequests");
 
             migrationBuilder.DropTable(
-                name: "PerformanceReviews");
+                name: "Places");
 
             migrationBuilder.DropTable(
-                name: "Places");
+                name: "Responses");
 
             migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Responses");
 
             migrationBuilder.DropTable(
                 name: "Departments");
